@@ -1,5 +1,8 @@
 {
 	"version": "v1",
+	"public": true,
+	"name": "stencils-ruby-rails",
+	"icon": "https://www.ruby-lang.org/images/header-ruby-logo.png",
 	"templates": [
 		{
 			"name": "Service",
@@ -8,7 +11,10 @@
 			"description": "Defines a service",
 			"context_type": "service",
 			"tags": ["service"],
-			"preferred_sequence": 2
+			"preferred_sequence": 2,
+			"suggested": true,
+			"min_usage": 1,
+			"max_usage": 9999
 		},
 		{
 			"name": "Deployment",
@@ -17,7 +23,10 @@
 			"description": "Defines a deployment",
 			"context_type": "service",
 			"tags": ["deployment"],
-			"preferred_sequence": 1
+			"preferred_sequence": 1,
+			"suggested": true,
+			"min_usage": 1,
+			"max_usage": 9999
 		},
 		{
 			"name": "Setup",
@@ -26,7 +35,10 @@
 			"description": "Setup namespace, etc",
 			"context_type": "stack",
 			"tags": ["setup"],
-			"preferred_sequence": -9999
+			"preferred_sequence": -9999,
+			"suggested": true,
+			"min_usage": 1,
+			"max_usage": 1
 		},
 		{
 			"name": "Secrets",
@@ -35,7 +47,10 @@
 			"description": "Adding Secrets from Vault",
 			"context_type": "stack",
 			"tags": ["config"],
-			"preferred_sequence": -9994
+			"preferred_sequence": -9994,
+			"suggested": false,
+			"min_usage": 0,
+			"max_usage": 9999
 		},
 		{
 			"name": "Event Relay",
@@ -44,7 +59,10 @@
 			"description": "Notify when formations deployed",
 			"context_type": "stack",
 			"tags": ["config", "setup"],
-			"preferred_sequence": -9996
+			"preferred_sequence": -9996,
+			"suggested": false,
+			"min_usage": 0,
+			"max_usage": 9999
 		},
 		{
 			"name": "Custom",
@@ -53,7 +71,10 @@
 			"description": "Blank custom file",
 			"context_type": "stack",
 			"tags": [],
-			"preferred_sequence": 9998
+			"preferred_sequence": 9998,
+			"suggested": false,
+			"min_usage": 0,
+			"max_usage": 9999
 		}
 	]
 }
