@@ -2,7 +2,7 @@
 	"version": "v1",
 	"public": true,
 	"name": "stencils-ruby-rails",
-	"icon": "https://www.ruby-lang.org/images/header-ruby-logo.png",
+	"icon": "https://rubyonrails.org/images/rails-logo.svg",
 	"templates": [
 		{
 			"name": "Service",
