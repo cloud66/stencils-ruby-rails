@@ -32,6 +32,18 @@
 				"max_usage": 9999
 			},
 			{
+				"name": "Setup",
+				"filename_pattern": "setup.yml",
+				"filename": "setup.yml",
+				"description": "Setup namespace, etc",
+				"context_type": "stack",
+				"tags": ["setup"],
+				"preferred_sequence": -9999,
+				"suggested": true,
+				"min_usage": 1,
+				"max_usage": 1
+			},
+			{
 				"name": "Event Relay",
 				"filename_pattern": "event-relay.yml",
 				"filename": "event-relay.yml",
