@@ -1,7 +1,7 @@
 {
 	"version": "v1",
 	"public": true,
-	"name": "stencils-ruby-rails",
+	"name": "cloud66-ruby-rails",
 	"icon": "https://rubyonrails.org/images/rails-logo.svg",
 	"long_name": "Ruby on Rails Base Template Repository",
 	"description": "Base Template Repository for Ruby on Rails applications",
