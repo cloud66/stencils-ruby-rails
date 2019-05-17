@@ -1,8 +1,7 @@
 {
 	"version": "v1",
 	"public": true,
-	"name": "ruby-rails-dev",
-	"icon": "https://help.cloud66.com/images/ui/ruby_logo.svg",
+	"name": "ruby-rails",
 	"long_name": "Ruby on Rails Base Template Repository",
 	"description": "Base Template Repository for Ruby on Rails applications",
 	"templates": {
@@ -69,6 +68,6 @@
 			}
 		],
 		"policies": [],
-		"transformers": []
+		"transformations": []
 	}
 }
