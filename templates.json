@@ -73,10 +73,10 @@
         "helm_charts": [
             {
                 "name": "MySQL",
-                "modifiers": [
+                "modifiers": [{
                     "type": "values.yml",
                     "filename": "helm_charts/mysql.yml"
-                ],
+                }],
                 "description": "Formation Integrated MySQL values.yml",
                 "tags": ["database", "mysql"],
                 "chart_repository_url": "https://kubernetes-charts.storage.googleapis.com",
@@ -85,10 +85,10 @@
             },
             {
                 "name": "PostgreSQL",
-                "modifiers": [
+                "modifiers": [{
                     "type": "values.yml",
                     "filename": "helm_charts/postgresql.yml"
-                ],
+                }],
                 "description": "Formation Integrated PostgreSQL values.yml",
                 "tags": ["database", "postgresql"],
                 "chart_repository_url": "https://kubernetes-charts.storage.googleapis.com",
@@ -97,10 +97,10 @@
             },
             {
                 "name": "Redis",
-                "modifiers": [
+                "modifiers": [{
                     "type": "values.yml",
                     "filename": "helm_charts/redis.yml"
-                ],
+                }],
                 "description": "Formation Integrated Redis values.yml",
                 "tags": ["database", "redis"],
                 "chart_repository_url": "https://kubernetes-charts.storage.googleapis.com",
@@ -109,10 +109,10 @@
             },
             {
                 "name": "MongoDB",
-                "modifiers": [
+                "modifiers": [{
                     "type": "values.yml",
                     "filename": "helm_charts/mongodb.yml"
-                ],
+                }],
                 "description": "Formation Integrated MongoDB values.yml",
                 "tags": ["database", "mongodb"],
                 "chart_repository_url": "https://kubernetes-charts.storage.googleapis.com",
