@@ -1,75 +1,75 @@
 {
-	"version": "v1",
-	"public": true,
-	"name": "ruby-rails",
-	"icon": "https://rubyonrails.org/images/rails-logo.svg",
-	"long_name": "Ruby on Rails Base Template Repository",
-	"description": "Base Template Repository for Ruby on Rails applications",
-	"templates": {
-		"stencils": [
-			{
-				"name": "Service",
-				"filename_pattern": "${service}_service.yml",
-				"filename": "service.yml",
-				"description": "Defines a service",
-				"context_type": "service",
-				"tags": ["service"],
-				"preferred_sequence": 2,
-				"suggested": true,
-				"min_usage": 1,
-				"max_usage": 9999
-			},
-			{
-				"name": "Deployment",
-				"filename_pattern": "${service}_deploy.yml",
-				"filename": "deploy.yml",
-				"description": "Defines a deployment",
-				"context_type": "service",
-				"tags": ["deployment"],
-				"preferred_sequence": 1,
-				"suggested": true,
-				"min_usage": 1,
-				"max_usage": 9999
-			},
-			{
-				"name": "Setup",
-				"filename_pattern": "setup.yml",
-				"filename": "setup.yml",
-				"description": "Setup namespace, etc",
-				"context_type": "stack",
-				"tags": ["setup"],
-				"preferred_sequence": -9999,
-				"suggested": true,
-				"min_usage": 1,
-				"max_usage": 1
-			},
-			{
-				"name": "Event Relay",
-				"filename_pattern": "event-relay.yml",
-				"filename": "event-relay.yml",
-				"description": "Notify when formations deployed",
-				"context_type": "stack",
-				"tags": ["config", "setup"],
-				"preferred_sequence": -9996,
-				"suggested": false,
-				"min_usage": 0,
-				"max_usage": 9999
-			},
-			{
-				"name": "Custom",
-				"filename_pattern": "blank.yml",
-				"filename": "blank.yml",
-				"description": "Blank custom file",
-				"context_type": "stack",
-				"tags": [],
-				"preferred_sequence": 9998,
-				"suggested": false,
-				"min_usage": 0,
-				"max_usage": 9999
-			}
-		],
-		"policies": [],
-		"transformations": [],
+    "version": "v1",
+    "public": true,
+    "name": "ruby-rails",
+    "icon": "https://rubyonrails.org/images/rails-logo.svg",
+    "long_name": "Ruby on Rails Base Template Repository",
+    "description": "Base Template Repository for Ruby on Rails applications",
+    "templates": {
+        "stencils": [
+            {
+                "name": "Service",
+                "filename_pattern": "${service}_service.yml",
+                "filename": "service.yml",
+                "description": "Defines a service",
+                "context_type": "service",
+                "tags": ["service"],
+                "preferred_sequence": 2,
+                "suggested": true,
+                "min_usage": 1,
+                "max_usage": 9999
+            },
+            {
+                "name": "Deployment",
+                "filename_pattern": "${service}_deploy.yml",
+                "filename": "deploy.yml",
+                "description": "Defines a deployment",
+                "context_type": "service",
+                "tags": ["deployment"],
+                "preferred_sequence": 1,
+                "suggested": true,
+                "min_usage": 1,
+                "max_usage": 9999
+            },
+            {
+                "name": "Setup",
+                "filename_pattern": "setup.yml",
+                "filename": "setup.yml",
+                "description": "Setup namespace, etc",
+                "context_type": "stack",
+                "tags": ["setup"],
+                "preferred_sequence": -9999,
+                "suggested": true,
+                "min_usage": 1,
+                "max_usage": 1
+            },
+            {
+                "name": "Event Relay",
+                "filename_pattern": "event-relay.yml",
+                "filename": "event-relay.yml",
+                "description": "Notify when formations deployed",
+                "context_type": "stack",
+                "tags": ["config", "setup"],
+                "preferred_sequence": -9996,
+                "suggested": false,
+                "min_usage": 0,
+                "max_usage": 9999
+            },
+            {
+                "name": "Custom",
+                "filename_pattern": "blank.yml",
+                "filename": "blank.yml",
+                "description": "Blank custom file",
+                "context_type": "stack",
+                "tags": [],
+                "preferred_sequence": 9998,
+                "suggested": false,
+                "min_usage": 0,
+                "max_usage": 9999
+            }
+        ],
+        "policies": [],
+        "transformations": [],
         "helm_charts": [
             {
                 "name": "MySQL",
@@ -120,5 +120,5 @@
                 "chart_version": "5.20.3"
             }
         ]
-	}
+    }
 }
