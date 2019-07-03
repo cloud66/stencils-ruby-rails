@@ -74,9 +74,9 @@
                 "description": "All ConfigStore stored as Kubernetes secrets",
                 "context_type": "stack",
                 "tags": [],
-                "preferred_sequence": 9998,
-                "suggested": false,
-                "min_usage": 0,
+                "preferred_sequence": -9998,
+                "suggested": true,
+                "min_usage": 1,
                 "max_usage": 1
             }
         ],
