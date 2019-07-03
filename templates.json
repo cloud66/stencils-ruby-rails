@@ -66,6 +66,18 @@
                 "suggested": false,
                 "min_usage": 0,
                 "max_usage": 9999
+            },
+            {
+                "name": "ConfigStore Secrets",
+                "filename_pattern": "configstore_secrets.yml",
+                "filename": "configstore_secrets.yml",
+                "description": "All ConfigStore stored as Kubernetes secrets",
+                "context_type": "stack",
+                "tags": [],
+                "preferred_sequence": 9998,
+                "suggested": false,
+                "min_usage": 0,
+                "max_usage": 1
             }
         ],
         "policies": [],
