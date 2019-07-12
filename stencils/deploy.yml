@@ -20,11 +20,23 @@ spec:
         - name: ${service}
           image: ${concat(repo, "/", image(repo, "name"), ":", image(repo, "tag"))}
           ports: # Comment out this (and the line below) if don't need to expose any ports for this pod
-            - containerPort: ${env(uppercase(concat(service, "_PORT")))}
+            - containerPort: ${require("INTERNAL_PORT")}
           command: ["bundle", "exec", "rails", "server"]
           args: ["-e", "$(RAILS_ENV)", "-b", "0.0.0.0"]
           env:
             - name: "RAILS_ENV"
               value: ${env("RAILS_ENV")}
+            # include configstore_secrets.yml stencil to get ConfigStore values available as secrets
+            # starter generated ConfigStore keys:
+            # For MySQL: mysql.username, mysql.password, mysql.database, mysql.host
+            # For Redis: redis.password, redis.host
+            # For PostgreSQL: postgresql.username, postgresql.password, postgresql.database, postgresql.host
+            # For MongoDB: mongodb.username, mongodb.password, mongodb.database, mongodb.host
+            # example of using ConfigStore key as an environment variable shown below:
+            # - name: MYSQL_USERNAME
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: ${concat(formation, "-configstore-secrets")}
+            #       key: mysql.username
       imagePullSecrets:
       - name: cloud66-registry-pull-secret
