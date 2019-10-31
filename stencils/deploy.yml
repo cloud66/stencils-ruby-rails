@@ -36,7 +36,7 @@ spec:
             # - name: MYSQL_USERNAME
             #   valueFrom:
             #     secretKeyRef:
-            #       name: ${concat(formation, "-configstore-secrets")}
+            #       name: ${concat(formation, "-configstore")}
             #       key: mysql.username
       imagePullSecrets:
       - name: cloud66-registry-pull-secret
