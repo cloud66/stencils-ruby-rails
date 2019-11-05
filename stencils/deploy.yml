@@ -9,6 +9,7 @@ metadata:
     cloud66.com/stencil-uuid: ${stencil["uuid"]}
     cloud66.com/snapshot-uid: ${snapshot["uid"]}
     cloud66.com/snapshot-gitref: ${snapshot["gitref"]}
+    cloud66.com/service-name: ${service}
 spec:
   template:
     metadata:
@@ -25,18 +26,18 @@ spec:
           args: ["-e", "$(RAILS_ENV)", "-b", "0.0.0.0"]
           env:
             - name: "RAILS_ENV"
-              value: ${env("RAILS_ENV")}
-            # include configstore_secrets.yml stencil to get ConfigStore values available as secrets
-            # starter generated ConfigStore keys:
-            # For MySQL: mysql.username, mysql.password, mysql.database, mysql.host
-            # For Redis: redis.password, redis.host
-            # For PostgreSQL: postgresql.username, postgresql.password, postgresql.database, postgresql.host
-            # For MongoDB: mongodb.username, mongodb.password, mongodb.database, mongodb.host
-            # example of using ConfigStore key as an environment variable shown below:
-            # - name: MYSQL_USERNAME
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: ${concat(formation, "-configstore")}
-            #       key: mysql.username
+              valueFrom:
+                secretKeyRef:
+                  name: ${concat(formation, "-environment-variables")}
+                  key: "RAILS_ENV"
+            - name: "SECRET_KEY_BASE"
+              valueFrom:
+                secretKeyRef:
+                  name: ${concat(formation, "-environment-variables")}
+                  key: "SECRET_KEY_BASE"
+            ${if(configstore("mysql.present")=="true",inline("_mysql.yml", 12))}
+            ${if(configstore("redis.present")=="true",inline("_redis.yml", 12))}
+            ${if(configstore("mongodb.present")=="true",inline("_mongodb.yml", 12))}
+            ${if(configstore("postgresql.present")=="true",inline("_postgresql.yml", 12))}
       imagePullSecrets:
       - name: cloud66-registry-pull-secret
