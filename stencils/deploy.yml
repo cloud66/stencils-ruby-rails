@@ -21,23 +21,23 @@ spec:
         - name: ${service}
           image: ${concat(repo, "/", image(repo, "name"), ":", image(repo, "tag"))}
           ports: # Comment out this (and the line below) if don't need to expose any ports for this pod
-            - containerPort: ${require("INTERNAL_PORT")}
+            - containerPort: ${service["container_port"]}
           command: ["bundle", "exec", "rails", "server"]
           args: ["-e", "$(RAILS_ENV)", "-b", "0.0.0.0"]
           env:
-            - name: "RAILS_ENV"
+            - name: RAILS_ENV
+              valueFrom:
+                secretKeyRef:   
+                  name: ${concat(formation, "-environment-variables")}
+                  key: RAILS_ENV
+            - name: SECRET_KEY_BASE
               valueFrom:
                 secretKeyRef:
                   name: ${concat(formation, "-environment-variables")}
-                  key: "RAILS_ENV"
-            - name: "SECRET_KEY_BASE"
-              valueFrom:
-                secretKeyRef:
-                  name: ${concat(formation, "-environment-variables")}
-                  key: "SECRET_KEY_BASE"
-            ${if(configstore("mysql.present")=="true",inline("_mysql.yml", 12))}
-            ${if(configstore("redis.present")=="true",inline("_redis.yml", 12))}
-            ${if(configstore("mongodb.present")=="true",inline("_mongodb.yml", 12))}
-            ${if(configstore("postgresql.present")=="true",inline("_postgresql.yml", 12))}
+                  key: SECRET_KEY_BASE
+            ${inline_conditional("_mysql.yml@cloud66", 12)}
+            ${inline_conditional("_redis.yml@cloud66", 12)}
+            ${inline_conditional("_mongodb.yml@cloud66", 12)}
+            ${inline_conditional("_postgresql.yml@cloud66", 12)}
       imagePullSecrets:
       - name: cloud66-registry-pull-secret

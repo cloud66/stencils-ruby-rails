@@ -16,8 +16,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - port: ${require("EXTERNAL_PORT")}
-    targetPort: ${require("INTERNAL_PORT")}
+  - port: ${service["http_port"]}
+    targetPort: ${service["container_port"]}
   selector:
     app: ${stackname}
     tier: ${service}
