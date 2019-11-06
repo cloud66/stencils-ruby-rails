@@ -26,15 +26,9 @@ spec:
           args: ["-e", "$(RAILS_ENV)", "-b", "0.0.0.0"]
           env:
             - name: RAILS_ENV
-              valueFrom:
-                secretKeyRef:   
-                  name: ${concat(stackname, "-environment-variables")}
-                  key: RAILS_ENV
+              value: ${env("RAILS_ENV")}
             - name: SECRET_KEY_BASE
-              valueFrom:
-                secretKeyRef:
-                  name: ${concat(stackname, "-environment-variables")}
-                  key: SECRET_KEY_BASE
+              value: ${env("SECRET_KEY_BASE")}
             ${if(configstore("mysql.present", application["configstore_namespace"], "false")=="true",inline("_mysql.yml@cloud66", 12),"")}
             ${if(configstore("redis.present", application["configstore_namespace"], "false")=="true",inline("_redis.yml@cloud66", 12),"")}
             ${if(configstore("postgresql.present", application["configstore_namespace"], "false")=="true",inline("_postgresql.yml@cloud66", 12),"")}
