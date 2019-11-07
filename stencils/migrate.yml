@@ -21,4 +21,4 @@ spec:
           image: ${concat(repo, "/", image(repo, "name"), ":", image(repo, "tag"))}
           command: ["bundle", "exec", "rails", "db:migrate"]
       restartPolicy: Never
-  backoffLimit: 1
+  backoffLimit: 0
