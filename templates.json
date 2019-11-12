@@ -34,6 +34,14 @@
         ],
         "policies": [],
         "transformations": [],
-        "helm_charts": []            
+        "helm_charts": [],
+        "workflows": [
+            {
+                "name": "Deploy Workflow",
+                "description": "Run database migrations and deploy the application",
+                "tags": [],
+                "filename": "deploy.yml"
+            }
+        ]
     }
 }
