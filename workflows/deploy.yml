@@ -1,14 +1,14 @@
 version: 1 # NOTE: this is rails-specific and doesn't have any setup stencils and helm releases, you'll need to use the general one or add the setup yourself.
 steps:
   - name: migrate
-    command: ${migrate_command(["migrate.yml"])} # Run only migration stencil with fucking long command. need to check result and delete pod at the end.  DELETE POD IS ANOTHERN STEP?
+    command: ${migrate_command(concat(require(MIGRATION_SERVICE_NAME),"migrate.yml")} # Run only migration stencil with fucking long command. need to check result and delete pod at the end.  DELETE POD IS ANOTHERN STEP?
     preflights:
       - command: "cx version"
         message: "It looks like you don't have cx installed! This page can help you install it https://help.cloud66.com/skycap/quickstarts/using-cloud66-toolbelt.html"
       - command: "kubectl version"
         message: "It looks like you don't have kubectl installed! This page can help you install it https://kubernetes.io/docs/tasks/tools/install-kubectl/"
   - name: render
-    command: ${render_command} # render and apply all the stencils. How to avoid the migration to be applied again?
+    command: ${render_command()} # render and apply all the stencils. How to avoid the migration to be applied again?
     preflights:
       - command: "cx version"
         message: "It looks like you don't have cx installed! This page can help you install it https://help.cloud66.com/skycap/quickstarts/using-cloud66-toolbelt.html"
