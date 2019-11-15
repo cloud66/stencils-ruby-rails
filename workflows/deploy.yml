@@ -1,7 +1,7 @@
 version: 1 # NOTE: this is rails-specific and doesn't have any setup stencils and helm releases, you'll need to use the general one or add the setup yourself.
 steps:
   - name: migrate
-    command: bash -c 'cx snapshots render --stack ${stackname} --snapshot ${snapshot["uid"]} --formation ${formation["uuid"]} --files "stencils/${formation["uuid"]}/migrate.yml@ruby-rails" | kubectl apply -f - &> /dev/null; ACTIVE=$(kubectl get job/migrate -n ${formation} -o jsonpath='{.status.active}'); i=0; for(( i=0; i < 60; i++)); do if [[ -n $ACTIVE ]]; then ACTIVE=$(kubectl get jobs/migrate -n ${formation} -o jsonpath='{.status.active}'); sleep 30 ; fi; done; if [[ -n $ACTIVE ]]; then exit 2; else kubectl wait --for=condition=completed --timeout=1s job/migrate -n ${formation} &> /dev/null; if [[ $? -eq 0 ]]; then exit 0; else exit 1; fi; fi;'
+    command: bash -c 'cx snapshots render --stack ${stackname} --snapshot ${snapshot["uid"]} --formation ${formation["uuid"]} --files "stencils/${formation["uuid"]}/migrate@ruby-rails.yml" | kubectl apply -f - &> /dev/null; ACTIVE=$(kubectl get job/migrate -n ${formation} -o jsonpath='{.status.active}'); i=0; for(( i=0; i < 60; i++)); do if [[ -n $ACTIVE ]]; then ACTIVE=$(kubectl get jobs/migrate -n ${formation} -o jsonpath='{.status.active}'); sleep 30 ; fi; done; if [[ -n $ACTIVE ]]; then exit 2; else kubectl wait --for=condition=completed --timeout=1s job/migrate -n ${formation} &> /dev/null; if [[ $? -eq 0 ]]; then exit 0; else exit 1; fi; fi;'
     preflights:
       - command: "cx version"
         message: "It looks like you don't have cx installed! This page can help you install it https://help.cloud66.com/skycap/quickstarts/using-cloud66-toolbelt.html"
