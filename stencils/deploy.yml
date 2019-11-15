@@ -33,9 +33,9 @@ spec:
               value: ${env("RAILS_ENV")}
             - name: SECRET_KEY_BASE
               value: ${env("SECRET_KEY_BASE")}
-            ${if(configstore("mysql.present", application["configstore_namespace"], "false")=="true",inline("_mysql.yml@cloud66", 12),"")}
-            ${if(configstore("redis.present", application["configstore_namespace"], "false")=="true",inline("_redis.yml@cloud66", 12),"")}
-            ${if(configstore("postgresql.present", application["configstore_namespace"], "false")=="true",inline("_postgresql.yml@cloud66", 12),"")}
-            ${if(configstore("mongodb.present", application["configstore_namespace"], "false")=="true",inline("_mongodb.yml@cloud66", 12),"")}
+            ${if(configstore("mysql.present", application["configstore_namespace"], "false")=="true",inline("_mysql@cloud66.yml", 12),"")}
+            ${if(configstore("redis.present", application["configstore_namespace"], "false")=="true",inline("_redis@cloud66.yml", 12),"")}
+            ${if(configstore("postgresql.present", application["configstore_namespace"], "false")=="true",inline("_postgresql@cloud66.yml", 12),"")}
+            ${if(configstore("mongodb.present", application["configstore_namespace"], "false")=="true",inline("_mongodb@cloud66.yml", 12),"")}
       imagePullSecrets:
       - name: cloud66-registry-pull-secret
