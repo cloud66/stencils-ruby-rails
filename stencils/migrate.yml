@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: ${concat(service, "-migrate")}
+  name: ruby-rails-db-migration
   namespace: ${formation}
   annotations:
     cloud66.com/formation-uuid: ${formation["uuid"]}
