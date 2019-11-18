@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: ${concat(service, "-mig")}
+  name: ${concat(service, "-migrate")}
   namespace: ${formation}
   annotations:
     cloud66.com/formation-uuid: ${formation["uuid"]}
@@ -20,5 +20,16 @@ spec:
         - name: ${concat(service, "-mig")}
           image: ${concat(repo, "/", image(repo, "name"), ":", image(repo, "tag"))}
           command: ["bundle", "exec", "rails", "db:migrate"]
+          env:
+            - name: RAILS_ENV
+              value: ${env("RAILS_ENV")}
+            - name: SECRET_KEY_BASE
+              value: ${env("SECRET_KEY_BASE")}
+            ${if(configstore("mysql.present", application["configstore_namespace"], "false")=="true",inline("_mysql@cloud66.yml", 12),"")}
+            ${if(configstore("redis.present", application["configstore_namespace"], "false")=="true",inline("_redis@cloud66.yml", 12),"")}
+            ${if(configstore("postgresql.present", application["configstore_namespace"], "false")=="true",inline("_postgresql@cloud66.yml", 12),"")}
+            ${if(configstore("mongodb.present", application["configstore_namespace"], "false")=="true",inline("_mongodb@cloud66.yml", 12),"")}
       restartPolicy: Never
+      imagePullSecrets:
+        - name: cloud66-registry-pull-secret
   backoffLimit: 0

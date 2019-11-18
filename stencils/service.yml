@@ -3,7 +3,7 @@
   kind: Service
   metadata:
     namespace: ${formation}
-    name: ${concat(service, "-svc")}
+    name: ${concat(service, "-service")}
     annotations:
       cloud66.com/formation-uuid: ${formation["uuid"]}
       cloud66.com/stencil-uuid: ${stencil["uuid"]}    

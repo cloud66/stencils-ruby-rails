@@ -3,7 +3,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   namespace: ${formation}
-  name: ${concat(service, "-dep")}
+  name: ${concat(service, "-deploy")}
   annotations:
     cloud66.com/formation-uuid: ${formation["uuid"]}
     cloud66.com/stencil-uuid: ${stencil["uuid"]}
