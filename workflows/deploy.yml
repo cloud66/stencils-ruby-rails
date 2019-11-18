@@ -1,25 +1,17 @@
 version: 1 # NOTE: this is rails-specific and doesn't have any setup stencils and helm releases, you'll need to use the general one or add the setup yourself.
 steps:
-# - name: migrate-cleanup
-#   command: bash -c 'kubectl delete job/migrate -n ${formation}'
-#   depends_on: ["migrate"]    
-# - name: migrate
-#   command: bash -c 'cx snapshots render --stack ${stackname} --snapshot ${snapshot["uid"]} --formation ${formation["uuid"]} --files "${join(fetch("$.stack.stencils[?(@.template_file=='migrate.yml')].filename"))}" | kubectl apply -f - &> /dev/null; ACTIVE=$(kubectl get job/migrate -n ${formation} -o jsonpath='{.status.active}'); i=0; for(( i=0; i < 60; i++)); do if [[ -n $ACTIVE ]]; then ACTIVE=$(kubectl get jobs/migrate -n ${formation} -o jsonpath='{.status.active}'); sleep 30 ; fi; done; if [[ -n $ACTIVE ]]; then exit 2; else kubectl wait --for=condition=completed --timeout=1s job/migrate -n ${formation} &> /dev/null; if [[ $? -eq 0 ]]; then exit 0; else exit 1; fi; fi;'
-#   preflights:
-#     - command: "cx version"
-#       message: "It looks like you don't have cx installed! This page can help you install it https://help.cloud66.com/skycap/quickstarts/using-cloud66-toolbelt.html"
-#     - command: "kubectl version"
-#       message: "It looks like you don't have kubectl installed! This page can help you install it https://kubernetes.io/docs/tasks/tools/install-kubectl/"
-# - name: migrate-cleanup
-#   command: bash -c 'kubectl delete job/migrate -n ${formation}'
-#   depends_on: ["migrate"]    
-# - name: deploy
-#   command: bash -c 'cx snapshots render --stack ${stackname} --snapshot ${snapshot["uid"]} --formation ${formation["uuid"]} | kubectl apply -f -'
-#   depends_on: ["migrate-cleanup"]  
-  - name: deploy
+  - name: ruby-rails-db-migrate-cleanup
+    command: bash -c 'kubectl delete -n ${formation} job ruby-rails-db-migration | true'
     preflights:
       - command: "cx version"
         message: "It looks like you don't have cx installed! This page can help you install it https://help.cloud66.com/skycap/quickstarts/using-cloud66-toolbelt.html"
       - command: "kubectl version"
         message: "It looks like you don't have kubectl installed! This page can help you install it https://kubernetes.io/docs/tasks/tools/install-kubectl/"
-    command: bash -c 'cx snapshots render --stack ${stackname} --snapshot ${snapshot["uid"]} --formation ${formation["uuid"]} | kubectl apply -f -'
+  - name: ruby-rails-db-migrate
+    depends_on: ["ruby-rails-db-migrate-cleanup"]    
+    command: bash -c 'cx snapshots render --stack ${stackname} --snapshot ${snapshot["uid"]} --formation ${formation["uuid"]} --files "${join(fetch("$.stack.stencils[?(@.template_file=='migrate.yml')].filename"))}" | kubectl apply -f -'
+    probe:
+      command: bash -c 'kubectl wait -n ${formation} --for=condition=complete --timeout=8s job ruby-rails-db-migration'
+  - name: ruby-rails-deploy
+    depends_on: ["ruby-rails-db-migrate"]    
+    command: bash -c 'cx snapshots render --stack ${stackname} --snapshot ${snapshot["uid"]} --formation ${formation["uuid"]} | kubectl apply -f -'    
