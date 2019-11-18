@@ -30,10 +30,30 @@
                 "suggested": true,
                 "min_usage": 1,
                 "max_usage": 9999
+            },
+            {
+                "name": "Migrate",
+                "filename_pattern": "${service}_migration.yml",
+                "filename": "migrate.yml",
+                "description": "Run database migrations",
+                "context_type": "service",
+                "tags": ["migration"],
+                "preferred_sequence": 2,
+                "suggested": true,
+                "min_usage": 0,
+                "max_usage": 9999
             }
         ],
         "policies": [],
         "transformations": [],
-        "helm_charts": []            
+        "helm_charts": [],
+        "workflows": [
+            {
+                "name": "Deploy Workflow",
+                "description": "Run database migrations and deploy the application",
+                "tags": [],
+                "filename": "deploy.yml"
+            }
+        ]
     }
 }
