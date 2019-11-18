@@ -41,7 +41,7 @@
                 "preferred_sequence": 2,
                 "suggested": true,
                 "min_usage": 1,
-                "max_usage": 9999
+                "max_usage": 1
             }
         ],
         "policies": [],
