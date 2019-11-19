@@ -17,7 +17,7 @@ spec:
         tier: ${service}
     spec:
       containers:
-        - name: ${concat(service, "-mig")}
+        - name: ruby-rails-db-migration
           image: ${concat(repo, "/", image(repo, "name"), ":", image(repo, "tag"))}
           command: ["bundle", "exec", "rails", "db:migrate"]
           env:
