@@ -49,10 +49,16 @@
         "helm_charts": [],
         "workflows": [
             {
-                "name": "Deploy Workflow",
-                "description": "Run database migrations and deploy the application",
+                "name": "Default Workflow",
+                "description": "Deploy the application and run database migrations",
                 "tags": [],
-                "filename": "deploy.yml"
+                "filename": "default.yml"
+            },
+            {
+                "name": "Helm Release Inline",
+                "description": "partial for helm release deployment",
+                "tags": [],
+                "filename": "_helm_upgrade.yml"
             }
         ]
     }
