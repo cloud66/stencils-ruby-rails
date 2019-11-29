@@ -8,18 +8,6 @@
     "templates": {
         "stencils": [
             {
-                "name": "Service",
-                "filename_pattern": "${service}_service.yml",
-                "filename": "service.yml",
-                "description": "Defines a service",
-                "context_type": "service",
-                "tags": ["service"],
-                "preferred_sequence": 2,
-                "suggested": true,
-                "min_usage": 1,
-                "max_usage": 9999
-            },
-            {
                 "name": "Deployment",
                 "filename_pattern": "${service}_deploy.yml",
                 "filename": "deploy.yml",
