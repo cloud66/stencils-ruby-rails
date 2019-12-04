@@ -1,26 +1,22 @@
 version: 1 # NOTE: this is rails-specific and doesn't have any setup stencils and helm releases, you'll need to use the general one or add the setup yourself.
 steps:
   - name: setup
-        command: bash -c 'cx snapshots render --stack "${application["name"]}" --snapshot ${snapshot["uid"]} --formation ${formation["uuid"]} --files "stencils/${formation["uuid"]}/setup@cloud66.yml","stencils/${formation["uuid"]}/secrets@cloud66.yml","stencils/${formation["uuid"]}/event-relay@cloud66.yml" | kubectl apply -f - '
-        preflights:
-          - command: "cx version"
-            message: "It looks like you don't have cx installed! This page can help you install it https://help.cloud66.com/skycap/quickstarts/using-cloud66-toolbelt.html"
-          - command: "kubectl version"
-            message: "It looks like you don't have kubectl installed! This page can help you install it https://kubernetes.io/docs/tasks/tools/install-kubectl/"
-${repeat_inline("_helm_upgrade@ruby-rails.yml", 2, fetch(concat("$.stack.helm.releases[?(@.formation.name==",formation,")]")))}
-  - name: ruby-rails-db-migrate-cleanup
-    command: bash -c 'kubectl delete -n ${formation} job ruby-rails-db-migration | true'
+    command: bash -c 'cx snapshots render --stack "${application["name"]}" --snapshot ${snapshot["uid"]} --formation ${formation["uuid"]} --files "stencils/${formation["uuid"]}/setup@cloud66.yml","stencils/${formation["uuid"]}/secrets@cloud66.yml","stencils/${formation["uuid"]}/event-relay@cloud66.yml" | kubectl apply -f - '
     preflights:
       - command: "cx version"
         message: "It looks like you don't have cx installed! This page can help you install it https://help.cloud66.com/skycap/quickstarts/using-cloud66-toolbelt.html"
       - command: "kubectl version"
         message: "It looks like you don't have kubectl installed! This page can help you install it https://kubernetes.io/docs/tasks/tools/install-kubectl/"
+  ${repeat_inline("_helm_upgrade@ruby-rails.yml", 2, fetch(concat("$.stack.helm.releases[?(@.formation.name==",formation,")]")))}
+  - name: ruby-rails-db-migrate-cleanup
+    command: bash -c 'kubectl delete -n ${formation} job ruby-rails-db-migration | true'
+    depends_on: ["setup"]
   - name: ruby-rails-db-migrate
-    depends_on: ["ruby-rails-db-migrate-cleanup"]    
+    depends_on: ["ruby-rails-db-migrate-cleanup"]
     command: bash -c 'cx snapshots render --stack "${application["name"]}" --snapshot ${snapshot["uid"]} --formation ${formation["uuid"]} --files "${join(fetch("$.stack.stencils[?(@.template_file=='migrate.yml')].filename"))}" | kubectl apply -f -'
     timeout: 3600s
     probe:
       command: bash -c 'kubectl wait -n ${formation} --for=condition=complete --timeout=1800s job ruby-rails-db-migration'
   - name: ruby-rails-deploy
-    depends_on: ["ruby-rails-db-migrate"]    
-    command: bash -c 'cx snapshots render --stack "${application["name"]}" --snapshot ${snapshot["uid"]} --formation ${formation["uuid"]} | kubectl apply -f -'    
+    depends_on: ["ruby-rails-db-migrate"]
+    command: bash -c 'cx snapshots render --stack "${application["name"]}" --snapshot ${snapshot["uid"]} --formation ${formation["uuid"]} | kubectl apply -f -'
