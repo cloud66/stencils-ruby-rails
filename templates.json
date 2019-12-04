@@ -8,18 +8,6 @@
     "templates": {
         "stencils": [
             {
-                "name": "Service",
-                "filename_pattern": "${service}_service.yml",
-                "filename": "service.yml",
-                "description": "Defines a service",
-                "context_type": "service",
-                "tags": ["service"],
-                "preferred_sequence": 2,
-                "suggested": true,
-                "min_usage": 1,
-                "max_usage": 9999
-            },
-            {
                 "name": "Deployment",
                 "filename_pattern": "${service}_deploy.yml",
                 "filename": "deploy.yml",
@@ -49,10 +37,16 @@
         "helm_charts": [],
         "workflows": [
             {
-                "name": "Deploy Workflow",
-                "description": "Run database migrations and deploy the application",
+                "name": "Default Workflow",
+                "description": "Deploy the application and run database migrations",
                 "tags": [],
-                "filename": "deploy.yml"
+                "filename": "default.yml"
+            },
+            {
+                "name": "Helm Release Inline",
+                "description": "partial for helm release deployment",
+                "tags": [],
+                "filename": "_helm_upgrade.yml"
             }
         ]
     }
