@@ -21,7 +21,7 @@ spec:
         - name: ${service.name}
           image: ${concat(repo, "/", image(repo, "name"), ":", image(repo, "tag"))}
           ports: # Comment out this (and the line below) if don't need to expose any ports for this pod
-            - containerPort: ${service.ports.container}
+            - containerPort: ${service.port.container}
           command: ["bundle", "exec", "rails", "server"]
           args: ["-e", "$(RAILS_ENV)", "-b", "0.0.0.0"]
           env:
