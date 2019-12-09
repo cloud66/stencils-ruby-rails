@@ -1,3 +1,4 @@
+#!remove-empty
 # this is a Stencil for Kubernetes deployments
 apiVersion: extensions/v1beta1
 kind: Deployment
