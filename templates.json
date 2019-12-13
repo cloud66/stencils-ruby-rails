@@ -48,6 +48,22 @@
                 "tags": [],
                 "filename": "_helm_upgrade.yml"
             }
-        ]
+        ],
+        "filters": [
+			{			
+				"name": "blank",
+				"filename": "blank.json",
+				"description": "Empty filter (passes all)",
+				"tags": [],
+				"min_usage": 0
+			},
+			{
+				"name": "migration",
+				"description": "Select stencils with a tag value 'migration'",
+				"filename": "migration.json",
+				"tags": [],
+				"min_usage": 1
+			}
+		]
     }
 }
