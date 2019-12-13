@@ -15,7 +15,7 @@ spec:
       containers:
         - name: ruby-rails-db-migration
           image: ${concat(repo, "/", image(repo, "name"), ":", image(repo, "tag"))}
-          command: ["bundle", "exec", "rails", "db:migrate"]
+          command: ["bundle", "exec", "rake", "db:migrate"]
           env:
             - name: RAILS_ENV
               value: ${env("RAILS_ENV")}
