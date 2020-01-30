@@ -24,7 +24,7 @@ spec:
             - name: RAILS_LOG_TO_STDOUT
               value: 'true'
             ${inline_matching("_(.*?)_credentials@cloud66", 12)}
-      restartPolicy: Never
+      restartPolicy: OnFailure
       imagePullSecrets:
         - name: cloud66-registry-pull-secret
-  backoffLimit: 0
+  backoffLimit: 6
