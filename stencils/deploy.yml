@@ -30,6 +30,10 @@ spec:
               value: ${env("RAILS_ENV")}
             - name: SECRET_KEY_BASE
               value: ${env("SECRET_KEY_BASE")}
+            - name: RAILS_LOG_TO_STDOUT
+              value: 'true'
+            - name: RAILS_SERVE_STATIC_FILES
+              value: 'true'
             ${inline_matching("_(.*?)_credentials@cloud66", 12)}
       imagePullSecrets:
       - name: cloud66-registry-pull-secret
