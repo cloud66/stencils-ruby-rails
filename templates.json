@@ -37,20 +37,32 @@
         "helm_charts": [],
         "workflows": [
             {
-                "name": "Default Workflow",
-                "description": "Deploy the application and run database migrations",
+                "name": "Setup Workflow",
+                "description": "Workflow to setup the application for deployment",
                 "tags": [],
-                "filename": "default.yml"
+                "filename": "setup.yml"
             },
             {
                 "name": "Helm Release Inline",
                 "description": "partial for helm release deployment",
                 "tags": [],
                 "filename": "_helm_upgrade.yml"
+            },
+            {
+                "name": "Blank Workflow",
+                "description": "A blank workflow template",
+                "tags": [],
+                "filename": "blank.yml"
+            },
+            {
+                "name": "Deploy",
+                "description": "Workflow to deploy the application",
+                "tags": [],
+                "filename": "deploy.yml"
             }
         ],
         "filters": [
-			{			
+			{
 				"name": "blank",
 				"filename": "blank.json",
 				"description": "Empty filter (passes all)",
